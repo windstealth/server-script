@@ -132,20 +132,20 @@ else
 
   if [ "$USE_SECRETIVE" = false ]; then
     CONFIG_BLOCK=$(cat <<EOF
-Host ssh.$SERVER_NAME.com
+Host $HOST_ALIAS
+    HostName $IP
+    Port $PORT
+    User $SSH_USER
+EOF
+)
+  else
+    CONFIG_BLOCK=$(cat <<EOF
+Host $HOST_ALIAS
     HostName $IP
     User $SSH_USER
     Port $PORT
     IdentityFile $IDENTITY_FILE
     IdentitiesOnly yes
-EOF
-)
-  else
-    CONFIG_BLOCK=$(cat <<EOF
-Host ssh.$SERVER_NAME.com
-    HostName $IP
-    Port $PORT
-    User $SSH_USER
 EOF
 )
   fi
