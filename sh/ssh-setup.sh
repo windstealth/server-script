@@ -79,7 +79,6 @@ fi
 # Friendly alias prompt
 echo "🆔 Server name:"
 read SERVER_NAME
-SERVER_TITLE="$(tr '[:lower:]' '[:upper:]' <<< "${SERVER_NAME:0:1}")${SERVER_NAME:1}"
 HOST_ALIAS="$HOST_KIND.$SERVER_NAME.com"
 
 # Secretive public key or non-Secretive setup
@@ -89,7 +88,7 @@ if [ "$USE_SECRETIVE" = true ]; then
 else
   # Non-Secretive setup, generate SSH key
   echo "🔑 Generating SSH key (no Secretive used)..."
-  ssh-keygen -t ed25519 -C "$HOST_ALIAS@$HOST_NAME.local ($SERVER_TITLE Server Key - $(date +%Y-%m-%d))" -f "$HOME_DIR/.ssh/id_ed25519_${HOST_KIND}_${SERVER_NAME}"
+  ssh-keygen -t ed25519 -C "$HOST_ALIAS@$HOST_NAME.local ([$SERVER_NAME] Server Key - $(date +%Y-%m-%d))" -f "$HOME_DIR/.ssh/id_ed25519_${HOST_KIND}_${SERVER_NAME}"
   IDENTITY_FILE="$HOME_DIR/.ssh/id_ed25519_${HOST_KIND}_${SERVER_NAME}"
   echo "✅ SSH key generated at $IDENTITY_FILE.pub"
 fi
