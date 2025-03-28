@@ -13,6 +13,7 @@ else
 fi
 TARGET_GROUP=$(id -gn "$TARGET_USER")
 HOME_DIR=$(eval echo "~$TARGET_USER")
+HOST_NAME=$(hostname)
 SSH_CONFIG="$HOME_DIR/.ssh/config"
 
 # Ensure SSH config file exists with correct permissions
@@ -88,9 +89,9 @@ if [ "$USE_SECRETIVE" = true ]; then
 else
   # Non-Secretive setup, generate SSH key
   echo "🔑 Generating SSH key (no Secretive used)..."
-  ssh-keygen -t ed25519 -C "$TARGET_USER@$HOST_NAME ($SERVER_TITLE Server Key - $(date +%Y-%m-%d))" -f "$HOME_DIR/.ssh/id_ed25519_${HOST_KIND}_${SERVER_NAME}"
-  IDENTITY_FILE="$HOME_DIR/.ssh/id_ed25519_${HOST_KIND}_${SERVER_NAME}.pub"
-  echo "✅ SSH key generated at $IDENTITY_FILE"
+  ssh-keygen -t ed25519 -C "$HOST_ALIAS@$HOST_NAME.local ($SERVER_TITLE Server Key - $(date +%Y-%m-%d))" -f "$HOME_DIR/.ssh/id_ed25519_${HOST_KIND}_${SERVER_NAME}"
+  IDENTITY_FILE="$HOME_DIR/.ssh/id_ed25519_${HOST_KIND}_${SERVER_NAME}"
+  echo "✅ SSH key generated at $IDENTITY_FILE.pub"
 fi
 
 # ================================
@@ -119,7 +120,6 @@ EOF
   fi
 # Setup SSH Host (non-Secretive or Secretive)
 else
-  HOST_NAME=$(hostname)
 
   echo "🌐 Hostname or IP:"
   read IP
@@ -192,7 +192,7 @@ if [[ "$HOST_KIND" == "ssh" && "$USE_SECRETIVE" = false ]]; then
   read SHOULD_UPLOAD_KEY
   if [[ "$SHOULD_UPLOAD_KEY" =~ ^[Yy]$ ]]; then
     echo "🚀 Uploading key to $HOST_ALIAS using ssh-copy-id..."
-    ssh-copy-id -i $IDENTITY_FILE "$HOST_ALIAS"
+    ssh-copy-id -i $IDENTITY_FILE.pub "$HOST_ALIAS"
     echo "✅ Public key uploaded successfully using ssh-copy-id!"
   else
     echo "⏭️  Skipping key upload."
