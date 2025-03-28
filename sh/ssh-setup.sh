@@ -178,7 +178,7 @@ if [[ "$HOST_KIND" == "ssh" && "$USE_SECRETIVE" = true ]]; then
     ssh "$HOST_ALIAS" "
       mkdir -p ~/.ssh && chmod 700 ~/.ssh
       touch ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys
-      echo \"$(cat $IDENTITY_FILE) $HOST_ALIAS@secretive.$HOST_NAME.local\" >> ~/.ssh/authorized_keys
+      echo \"$(cat $IDENTITY_FILE) $HOST_ALIAS@$HOST_NAME.secretive.local ([$SERVER_NAME] Server Key - $(date +%Y-%m-%d))\" >> ~/.ssh/authorized_keys
     "
     echo "✅ Public key uploaded successfully!"
   else
