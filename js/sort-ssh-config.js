@@ -9,14 +9,20 @@ const fileContent = fs.readFileSync(filePath, 'utf-8');
 
 // Split the content into non-empty lines
 const lines = fileContent.split('\n').filter(Boolean);
-
 let hostLines = [];  // Store the current block being built
 const blocks = [];
 
 // Split content into blocks based on "Host" entries
 lines.forEach((line, i) => {
+  if ( i === lines.length - 1) {
+  console.log("XXX" ,line, hostLines)
+  }
+
   if (line.startsWith('Host') || i === lines.length - 1) {
     if (hostLines.length > 0) {
+      if (i === lines.length - 1) {
+        hostLines.push(line);
+      }
       blocks.push(hostLines.join("\n"));
     }
     hostLines = [line];
