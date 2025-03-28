@@ -32,7 +32,7 @@ const hosts = [];
 // Process each block, classifying as global or host block
 blocks.forEach((block) => {
   const cleanedBlock = block.split('\n').filter(line => line && !line.startsWith('#')).join('\n');
-  if (cleanedBlock.startsWith('Host !github.com')) {
+  if (cleanedBlock.startsWith('Host *')) {
     globals.push(cleanedBlock);
   } else {
     hosts.push(cleanedBlock);
