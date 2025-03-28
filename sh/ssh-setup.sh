@@ -88,8 +88,8 @@ if [ "$USE_SECRETIVE" = true ]; then
 else
   # Non-Secretive setup, generate SSH key
   echo "🔑 Generating SSH key (no Secretive used)..."
-  ssh-keygen -t ed25519 -C "$TARGET_USER@$HOST_NAME ($SERVER_TITLE Server Key - $(date +%Y-%m-%d))" -f ~/.ssh/id_ed25519_$HOST_KIND_$SERVER_NAME
-  IDENTITY_FILE="$HOME_DIR/.ssh/id_ed25519_$HOST_KIND_$SERVER_NAME.pub"
+  ssh-keygen -t ed25519 -C "$TARGET_USER@$HOST_NAME ($SERVER_TITLE Server Key - $(date +%Y-%m-%d))" -f "$HOME_DIR/.ssh/id_ed25519_${HOST_KIND}_${SERVER_NAME}"
+  IDENTITY_FILE="$HOME_DIR/.ssh/id_ed25519_${HOST_KIND}_${SERVER_NAME}.pub"
   echo "✅ SSH key generated at $IDENTITY_FILE"
 fi
 
