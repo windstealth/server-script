@@ -14,10 +14,6 @@ const blocks = [];
 
 // Split content into blocks based on "Host" entries
 lines.forEach((line, i) => {
-  if ( i === lines.length - 1) {
-  console.log("XXX" ,line, hostLines)
-  }
-
   if (line.startsWith('Host') || i === lines.length - 1) {
     if (hostLines.length > 0) {
       if (i === lines.length - 1) {
