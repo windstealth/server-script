@@ -159,7 +159,7 @@ fi
 if grep -q "Host $HOST_ALIAS" "$SSH_CONFIG"; then
   echo -e "\n⚠️  SSH config already contains an entry for $HOST_ALIAS — skipping append."
 else
-  echo -e "$CONFIG_BLOCK" | sudo tee -a "$SSH_CONFIG" > /dev/null
+  echo -e "\n$CONFIG_BLOCK" | sudo tee -a "$SSH_CONFIG" > /dev/null
   sudo chown "$TARGET_USER":"$TARGET_GROUP" "$SSH_CONFIG"
   echo "✅ SSH config block added for $HOST_ALIAS."
 fi
