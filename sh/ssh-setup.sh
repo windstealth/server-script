@@ -142,10 +142,11 @@ EOF
     CONFIG_BLOCK=$(cat <<EOF
 Host $HOST_ALIAS
     HostName $IP
-    User $SSH_USER
-    Port $PORT
-    IdentityFile $IDENTITY_FILE
     IdentitiesOnly yes
+    IdentityAgent $HOME_DIR/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
+    IdentityFile $IDENTITY_FILE
+    Port $PORT
+    User $SSH_USER
 EOF
 )
   fi
